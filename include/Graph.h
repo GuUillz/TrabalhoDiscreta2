@@ -5,7 +5,7 @@ public:
     Graph(const int&);
 
     void addEdge(const int&, const int&);
-    const std::unordered_set<int>& getNeighbors(const int&) const;
+ 
     int size() const {
         return adjacencyList.size();
     };
@@ -17,5 +17,6 @@ public:
     void printGraph() const;
     private:
     std::vector<std::unordered_set<int>> adjacencyList;
+    const std::unordered_set<int>& getNeighbors(const int&) const;
 
 };
