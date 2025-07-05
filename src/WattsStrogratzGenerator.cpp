@@ -38,7 +38,7 @@ void WattsStrogatzGenerator::rewireGraph(Graph& graph, const int& k, const doubl
                 do
                 {
                     newNeighbor = node_dist(rng);
-                }while (newNeighbor ==i || graph.getNeighbors(newNeighbor).count(i) > 0);
+                }while (newNeighbor ==i || graph[newNeighbor].count(i) > 0);
 
                 graph.addEdge(i, newNeighbor);
             }
@@ -49,7 +49,7 @@ void WattsStrogatzGenerator::rewireGraph(Graph& graph, const int& k, const doubl
 void printGraph(const Graph& graph){
     for (int i = 0; i < graph.size(); i++) {
         std::cout << "Node " << i << ": ";
-        for (const auto& neighbor : graph.getNeighbors(i)) {
+        for (const auto& neighbor : graph[i]) {
             std::cout << neighbor << " ";
         }
         std::cout << std::endl;
