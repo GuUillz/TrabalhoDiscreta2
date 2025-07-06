@@ -9,36 +9,81 @@ Simulation::Simulation(const Graph& graph, const SimulacaoParametros& params, co
 void Simulation::runSIS()
 {
 recordStateCounts();
+int infectados_atual = getInfectedCount();
+if(infectados_atual > pico_infectados ) 
+{
+    pico_infectados = infectados_atual;
+    passo_pico = 0;
+    VetorEstadosPico = node_states;
+
+}
 for(int passo = 0; passo < params.max_steps; passo++) {
     if(getInfectedCount() == 0) {
         break; 
     }
     stepSIS();
     recordStateCounts();   
+    if(infectados_atual > pico_infectados ) 
+{
+    pico_infectados = infectados_atual;
+    passo_pico = passo;
+    VetorEstadosPico = node_states;
+
+}
 
 } 
 }
 void Simulation::runSIR()
 {
 recordStateCounts();
+int infectados_atual = getInfectedCount();
+if(infectados_atual > pico_infectados ) 
+{
+    pico_infectados = infectados_atual;
+    passo_pico = 0;
+    VetorEstadosPico = node_states;
+
+}
 for(int passo = 0; passo < params.max_steps; passo++) {
     if(getInfectedCount() == 0) {
         break; 
     }
     stepSIR();
-    recordStateCounts();   
+    recordStateCounts(); 
+    if(infectados_atual > pico_infectados ) 
+{
+    pico_infectados = infectados_atual;
+    passo_pico = passo;
+    VetorEstadosPico = node_states;
+
+}  
 
 } 
 }
 void Simulation::runSEIR()
 {
 recordStateCounts();
+int infectados_atual = getInfectedCount();
+if(infectados_atual > pico_infectados ) 
+{
+    pico_infectados = infectados_atual;
+    passo_pico = 0;
+    VetorEstadosPico = node_states;
+
+}
 for(int passo = 0; passo < params.max_steps; passo++) {
     if(getInfectedCount() == 0 && getExposedCount() == 0) {
         break; 
     }
     stepSEIR();
-    recordStateCounts();        
+    recordStateCounts();   
+if(infectados_atual > pico_infectados ) 
+{
+    pico_infectados = infectados_atual;
+    passo_pico = 0;
+    VetorEstadosPico = node_states;
+
+}     
 }
 }
 
@@ -160,3 +205,27 @@ int Simulation::getExposedCount() const {
 }
 
 
+DirectedGraph Simulation::createTransitionGraph(const std::vector<State>& states, const Graph& graph, const double& beta, std::mt19937& rng) const {
+    int N = graph.size();
+    DirectedGraph transitionGraph(N);
+    std::uniform_real_distribution<> dist(0.0, 1.0);
+
+    for(int i = 0; i < N; i++) {
+        if (states[i] == State::Infectado) {
+            for (int neighbor : graph[i]) {
+                if (states[neighbor] == State::Sucetivel && dist(rng) < beta) {
+      
+                    transitionGraph.addEdge(i, neighbor);
+                }
+            }
+        } else if (states[i] == State::Exposto) {
+            for (int neighbor : graph[i]) {
+                if (states[neighbor] == State::Infectado && dist(rng) < beta) {
+                   
+                    transitionGraph.addEdge(i, neighbor);
+                }
+            }
+        }
+    }
+    return transitionGraph;
+}

@@ -23,12 +23,13 @@ void Graph::erase(const int u, const int v)
     adjacencyList[u].erase(v);
 
 }
-void Graph::printGraph() const {
+void Graph::printGraph(const std::string& filename = "graph.txt") const {
+    std::ofstream file(filename);
     for (int i = 0; i < adjacencyList.size(); i++) {
-        std::cout << "Node " << i << ": ";
+        file << "Node " << i << ": ";
         for (const auto& neighbor : adjacencyList[i]) {
-            std::cout << neighbor << " ";
+            file << neighbor << " ";
         }
-        std::cout << std::endl;
+        file << std::endl;
     }
 }

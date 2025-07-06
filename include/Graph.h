@@ -1,5 +1,6 @@
 #pragma once
 #include "Commons.h"
+#include <fstream>
 class Graph {
 public:
     Graph(const int&);
@@ -14,7 +15,7 @@ public:
         return getNeighbors(u);
     }
     void erase(const int, const int);
-    void printGraph() const;
+    void printGraph(const std::string&) const;
     private:
     std::vector<std::unordered_set<int>> adjacencyList;
     const std::unordered_set<int>& getNeighbors(const int&) const;
