@@ -1,7 +1,6 @@
 #pragma once
-#include "Commons.h"
 #include "Graph.h"
-#include <fstream>
+#include <random>
 class WattsStrogatzGenerator {
 public:
     WattsStrogatzGenerator(const unsigned int&);

@@ -1,11 +1,9 @@
 #pragma once
-#include "Commons.h"
-#include <random>
-#include <map>
-#include <fstream>
-#include <string>
 #include "Graph.h"
 #include "DirectedGraph.h"
+#include <random>
+#include <map>
+#include <algorithm>
 enum class State {
     Sucetivel,
     Infectado,
@@ -39,7 +37,8 @@ int getPeakInfectionStep() const {
 const std::vector<State>& getNodeStates() const {
     return node_states;
 }
-
+int getInfectedCount() const;
+int getExposedCount() const;
 
 private:
 const Graph& graph;
@@ -55,8 +54,7 @@ void stepSIS();
 void stepSIR();
 void stepSEIR();
 void recordStateCounts();
-int getInfectedCount() const;
-int getExposedCount() const;
+
 int pico_infectados = 0;
 int passo_pico = -1;
 std::vector<State> VetorEstadosPico;

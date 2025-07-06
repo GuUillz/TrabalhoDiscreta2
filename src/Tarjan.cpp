@@ -9,6 +9,7 @@ Tarjan::Tarjan(const DirectedGraph& graph) : graph(graph){
     time = 0;
     cfc_count = 0;
 
+
 }
 
 std::vector<std::vector<int>> Tarjan::findCFCS() {
