@@ -4,7 +4,7 @@ from pathlib import Path
 
 script_dir = Path(__file__).parent.resolve()
 
-
+# Constrói o caminho para a pasta Resultados
 base_path = script_dir
 def plotar_grafico(x,y, titulo,label, xlabel, ylabel, color):
     plt.plot(x, y, label=label, color=color)
