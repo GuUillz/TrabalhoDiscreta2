@@ -13,4 +13,4 @@ E apos finalizado, rodar make e o executavel será criado.
 
 Os resultados aqui mostrados são frutos das Seeds e parametros fixados no Main caso queira resutlados diferentes é so alterar.
 
-Graficos que estão no relatório foram criados apartir do arquivo plot.py
+Graficos que estão no relatório foram criados a partir do arquivo plot.py
