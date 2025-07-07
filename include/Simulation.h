@@ -13,7 +13,7 @@ enum class State {
 struct SimulacaoParametros
 {
 double beta;
-double gamma;
+double alpha;
 double epsilon = 0.0; 
 int max_steps = 1000;
 int num_infectados = 1;

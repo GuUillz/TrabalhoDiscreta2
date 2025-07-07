@@ -17,8 +17,8 @@ int main()
     std::cout << "Imprimindo o grafo em : grafo_cidade.txt\n";
     GrafoDaCidade.printGraph("grafo_cidade.txt");
     SimulacaoParametros params;
-    params.beta = 0.3; // Taxa de transmissão
-    params.gamma = 0.1; // Taxa de recuperação
+    params.alpha = 0.3; // Taxa de transmissão
+    params.beta = 0.1; // Taxa de recuperação
     params.epsilon = 0.05; // Taxa de exposição
     params.max_steps = 365; // Número máximo de Tempo passado (Dias)
     params.num_infectados = 20; // Número inicial de infectados 
@@ -29,7 +29,7 @@ int main()
     std::cout<< "Simulação SIS concluída e resultados salvos em 'resultados_SIS.csv'.\n";
     std::vector<State> pico = simulacao1.getPeakInfectionState();
     std::mt19937 rng(seed_sim);
-    DirectedGraph transmission_network = simulacao1.createTransitionGraph(pico, GrafoDaCidade, params.beta, rng);
+    DirectedGraph transmission_network = simulacao1.createTransitionGraph(pico, GrafoDaCidade, params.alpha, rng);
 
     Tarjan cfc_analyzer(transmission_network);
     cfc_analyzer.run();
@@ -43,7 +43,7 @@ int main()
     simulacao2.saveResults("resultados_SIR.csv");
     std::cout<< "Simulação SIR concluída e resultados salvos em 'resultados_SIR.csv'.\n";
     pico = simulacao2.getPeakInfectionState();
-    transmission_network = simulacao2.createTransitionGraph(pico, GrafoDaCidade, params.beta, rng);
+    transmission_network = simulacao2.createTransitionGraph(pico, GrafoDaCidade, params.alpha, rng);
     Tarjan cfc_analyzer2(transmission_network);
     cfc_analyzer2.run();
     const std::vector<int>& node_to_cfc_map2 = cfc_analyzer2.getNodeToCfcMap();
@@ -57,7 +57,7 @@ int main()
     simulacao3.saveResults("resultados_SEIR.csv");
     std::cout<< "Simulação SEIR concluída e resultados salvos em 'resultados_SEIR.csv'.\n";
     pico = simulacao3.getPeakInfectionState();
-    transmission_network = simulacao3.createTransitionGraph(pico, GrafoDaCidade, params.beta, rng);
+    transmission_network = simulacao3.createTransitionGraph(pico, GrafoDaCidade, params.alpha, rng);
 
 
     Tarjan cfc_analyzer3(transmission_network);

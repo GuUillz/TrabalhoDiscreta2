@@ -124,12 +124,12 @@ void Simulation::stepSIS() {
         if (node_states[i] == State::Infectado) {
             // Tentativa de transmissão para vizinhos
             for (int neighbor : graph[i]) {
-                if (node_states[neighbor] == State::Sucetivel && dist(rng) < params.beta) {
+                if (node_states[neighbor] == State::Sucetivel && dist(rng) < params.alpha) {
                     next_states[neighbor] = State::Infectado;
                 }
             }
             // Tentativa de recuperação para Suscetível
-            if (dist(rng) < params.gamma) {
+            if (dist(rng) < params.beta) {
                 next_states[i] = State::Sucetivel;
             }
         }
@@ -145,12 +145,12 @@ void Simulation::stepSIR() {
         if (node_states[i] == State::Infectado) {
             // Tentativa de transmissão para vizinhos
             for (int neighbor : graph[i]) {
-                if (node_states[neighbor] == State::Sucetivel && dist(rng) < params.beta) {
+                if (node_states[neighbor] == State::Sucetivel && dist(rng) < params.alpha) {
                     next_states[neighbor] = State::Infectado;
                 }
             }
             // Tentativa de recuperação
-            if (dist(rng) < params.gamma) {
+            if (dist(rng) < params.beta) {
                 next_states[i] = State::Removido;
             }
         }
@@ -167,12 +167,12 @@ void Simulation::stepSEIR() {
         if (node_states[i] == State::Infectado) {
             // Tentativa de transmissão para vizinhos
             for (int neighbor : graph[i]) {
-                if (node_states[neighbor] == State::Sucetivel && dist(rng) < params.beta) {
+                if (node_states[neighbor] == State::Sucetivel && dist(rng) < params.alpha) {
                     next_states[neighbor] = State::Exposto;
                 }
             }
             // Tentativa de recuperação
-            if (dist(rng) < params.gamma) {
+            if (dist(rng) < params.beta) {
                 next_states[i] = State::Removido;
             }
         } else if (node_states[i] == State::Exposto) {
